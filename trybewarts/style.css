@@ -1,0 +1,156 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Open sans, sans-serif;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+html {
+  font-size: 62.5%;
+  width: 100vw;
+  height: 100vh;
+}
+
+.header {
+  display: flex;
+  background-color: rgb(50, 167, 145);
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 70px;
+  height: 12vh;
+}
+
+.header-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header img {
+  height: 60px;
+  margin-right: 1rem;
+}
+
+.header h1 {
+  color: rgb(180, 420, 82);
+  font-family: Poppins, sans-serif;
+  font-weight: 700;
+  font-size: 3.5rem;
+}
+
+.trybewarts-login input {
+  border-radius: 5px;
+  margin-left: 7px;
+  height: 27px;
+}
+
+.nome-sobrenome input,
+.email-casa input {
+  height: 3rem;
+  padding: 0 1rem;
+  border-radius: 6px;
+  font-size: 1.4rem;
+}
+
+.header form input,
+#entrar {
+  padding: 0 1.5rem;
+  height: 4rem;
+}
+
+button {
+  color: rgb(41, 187, 137);
+  cursor: pointer;
+}
+
+.trybewarts-login {
+  display: flex;
+}
+
+.trybewarts-login button {
+  margin-left: 8px;
+  width: 150px;
+  background-color: aliceblue;
+}
+
+.principal {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: rgb(45, 160, 130);
+  justify-content: space-evenly;
+  height: 90vh;
+  padding-top: 1rem;
+}
+
+#evaluation-form {
+  display: flex;
+  flex-direction: column;
+  width: 675px;
+  font-size: 1.4rem;
+  padding: 1rem;
+}
+
+.email-casa label {
+  margin-left: 0.3rem;
+}
+
+.email-casa select {
+  height: 3rem;
+  width: 8rem;
+}
+
+.familia {
+  display: flex;
+  flex-direction: column;
+}
+
+.conteudo {
+  display: flex;
+  flex-direction: column;
+}
+
+.nivel-satisfacao {
+  display: flex;
+}
+
+.nivel-satisfacao label {
+  margin-right: 0.8rem;
+}
+
+.comentario {
+  display: flex;
+  flex-direction: column;
+}
+
+.comentario textarea {
+  width: 58rem;
+  height: 15rem;
+  padding: 0.5rem 1rem;
+}
+
+.contador label {
+  margin-right: 1rem;
+  display: inline;
+}
+
+.contador span {
+  display: inline;
+}
+
+.autorizacao button {
+  margin-left: 1.5rem;
+  padding: 0.5rem 2rem;
+}
+
+#trybewarts-forms-logo {
+  display: flex;
+  height: 500px;
+}
+
+footer {
+  background-color: rgb(50, 167, 145);
+  height: 2vh;
+  text-align: center;
+}
