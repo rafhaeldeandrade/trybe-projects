@@ -1,0 +1,21 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.color {
+  width: 23px;
+  height: 23px;
+  border: 1px solid black;
+}
+
+.pixel {
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+#clear-board {
+  display: block;
+}
