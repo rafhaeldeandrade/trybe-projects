@@ -1,60 +1,68 @@
-const botaoCriarTarefa = document.getElementById('criar-tarefa');
-const inputTextoTarefa = document.getElementById('texto-tarefa');
-const botaoApagaTudo = document.getElementById('apaga-tudo');
-const listaOrdenadaTarefas = document.getElementsByClassName('list');
-const main = document.getElementById('main');
-const listaOrdenadaListaTarefas = document.getElementById('lista-tarefas');
-const botaoRemoverFinalizados = document.getElementById('remover-finalizados');
+const taskInput= document.querySelector('#new-task');
+const tasks = document.querySelector('.tasks');
+const apagarTudo = document.querySelector('.btn-apagar-tudo');
+const apagarConcluidos = document.querySelector('.btn-apagar-concluidos');
 
-botaoCriarTarefa.addEventListener('click', () => {
-  if (inputTextoTarefa.value === '') {
-    window.alert(
-      'Input em branco, digite alguma tarefa antes de clicar no botão "Adicionar".'
-    );
+const createCustomElement = (el, className, innerText = '') => {
+  element = document.createElement(el);
+  if (Array.isArray(className)) {
+    className.forEach((classe) => element.classList.add(classe));
   } else {
-    let li = criaElemento('li', 'class', 'list');
-    li.innerText = inputTextoTarefa.value;
-    listaOrdenadaListaTarefas.appendChild(li);
-    inputTextoTarefa.value = '';
-    li.addEventListener('click', changeBackgroundColor);
-    li.addEventListener('dblclick', changeCompleted);
+    element.classList.add(className);
   }
-});
-
-function criaElemento(elemento, classOrId, name = '') {
-  let ele = document.createElement(elemento);
-  ele.setAttribute(classOrId, name);
-  return ele;
+  element.innerText = innerText;
+  return element;
 }
 
-function changeBackgroundColor(e) {
-  let listaOrdenadaTarefas = document.getElementsByClassName('list');
-
-  for (let listaTarefa of listaOrdenadaTarefas) {
-    listaTarefa.style.backgroundColor = '';
-  }
-
-  e.target.style.backgroundColor = 'rgb(128, 128, 128)';
+const selfCompleteTask = (e) => {
+  const el = e.target;
+  el.parentElement.parentElement.classList.toggle('task-completed');
 }
 
-function changeCompleted(e) {
-  e.target.classList.toggle('completed');
+const selfDeleteTask = (e) => {
+  const el = e.target;
+  tasks.removeChild(el.parentElement);
 }
 
-botaoApagaTudo.addEventListener('click', () => {
-  while (listaOrdenadaListaTarefas.lastElementChild) {
-    listaOrdenadaListaTarefas.removeChild(
-      listaOrdenadaListaTarefas.lastElementChild
-    );
-  }
-});
+const createTaskStructure = (inputValue) => {
+  const task = createCustomElement('div', 'task');
+  task.addEventListener('dblclick', () => {
+    task.classList.toggle('task-completed');
+  });
+  const iconTaskContainer = createCustomElement('div', 'icon-task-container');
+  const checkIcon = (createCustomElement('i', ['far', 'fa-check-circle']));
+  checkIcon.addEventListener('click', selfCompleteTask);
+  iconTaskContainer.appendChild(checkIcon);
+  iconTaskContainer.appendChild(createCustomElement('div', 'task-name', inputValue));
+  task.appendChild(iconTaskContainer);
+  const delIcon = createCustomElement('i', ['far', 'fa-trash-alt']);
+  delIcon.addEventListener('click', selfDeleteTask);
+  task.appendChild(delIcon);
+  return task;
+}
 
-botaoRemoverFinalizados.addEventListener('click', () => {
-  const lis = document.querySelectorAll('li');
-  for (let i = 0; i < lis.length; i += 1) {
-    const element = lis[i];
-    if (element.classList.contains('completed')) {
-      listaOrdenadaListaTarefas.removeChild(element);
+const newTask = (e) => {
+  if (e.keyCode !== 13 && (e.button !== 0)) return;
+  if (!taskInput.value) { alert('Digite algo para adicionar'); return; }
+  tasks.appendChild(createTaskStructure(taskInput.value));
+  taskInput.value = '';
+}
+
+const removeConcluidos = () => {
+  const concluidos = document.querySelectorAll('.task-completed');
+  if (!concluidos) return;
+  Array.from(concluidos).forEach((el) => {
+    tasks.removeChild(el);
+  })
+}
+
+window.onload = () => {
+  document.querySelector('.btn-new-task').addEventListener('click', newTask);
+  document.addEventListener('keyup', newTask);
+  apagarTudo.addEventListener('click', () => {
+    while (tasks.children.length > 0) {
+      tasks.removeChild(tasks.firstElementChild);
     }
-  }
-});
+  });
+  apagarConcluidos.addEventListener('click', removeConcluidos)
+}
